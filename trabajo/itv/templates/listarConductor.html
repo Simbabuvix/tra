@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block subtitulo %}
+   {% if user.is_staff %}
+        <br>
+        <input type="button" value="Registrar Conductor" onclick="location.reload();location.href='/crearConductor/'"/>
+    {% endif %}
+    <h2>Listado de Conductores:</h2>
+{% endblock %}
+
+{% block contenido %}
+    {% if object_list %}
+         {% for conductor in object_list %}
+             <h3><a href="/conductor/{{ conductor.id }}">{{ conductor.nombre }}</a></h3>
+			
+		{% if user.is_staff %}
+       
+        <input type="button" value="Editar" onclick="location.reload();location.href='/updateConductor/{{ conductor.id }}'"/>
+		<input type="button" value="Eliminar" onclick="location.reload();location.href='/deleteConductor/{{ conductor.id }}'"/>
+
+<br>
+    {% endif %}
+
+         {% endfor %}
+
+    {% else %}
+        <p>No hay ninguna conductor registrado.</p>
+    {% endif %}
+
+{% endblock %}
